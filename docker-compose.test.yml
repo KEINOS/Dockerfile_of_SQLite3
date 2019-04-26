@@ -1,3 +1,4 @@
 sut:
   build: .
-  command: docker run --rm -i --entrypoint /bin/sh $IMAGE_NAME /run-test.sh
+  # run test file inside a container using the built image
+  command: /run-test.sh
