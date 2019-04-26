@@ -1,4 +1,4 @@
 sut:
   build: .
   # run test file inside a container using the built image
-  command: /run-test.sh
+  command: whoami && ls -la
