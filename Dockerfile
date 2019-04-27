@@ -1,9 +1,9 @@
 FROM alpine AS build-env
 
-ENV NAME_FILE sqlite-autoconf-3170000
+RUN apk add --update alpine-sdk
 
-RUN apk add --update alpine-sdk && \
-    wget http://www.sqlite.org/2017/$NAME_FILE.tar.gz && \
+ENV NAME_FILE sqlite-autoconf-3280000
+RUN wget http://www.sqlite.org/2019/$NAME_FILE.tar.gz && \
     tar xvfz $NAME_FILE.tar.gz && \
     ./$NAME_FILE/configure --prefix=/usr && \
     make && \
