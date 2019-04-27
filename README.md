@@ -1,4 +1,4 @@
-[![](https://images.microbadger.com/badges/image/keinos/sqlite3.svg)](https://hub.docker.com/r/keinos/sqlite3 "DockerHub")
+[![](https://images.microbadger.com/badges/image/keinos/sqlite3.svg)](https://hub.docker.com/r/keinos/sqlite3 "DockerHub") [![](https://img.shields.io/docker/cloud/automated/keinos/sqlite3.svg)](https://hub.docker.com/r/keinos/sqlite3 "Docker Cloud Automated build") [![](https://img.shields.io/docker/cloud/build/keinos/sqlite3.svg)](https://hub.docker.com/r/keinos/sqlite3/builds "Docker Cloud Build Status")
 
 # Dockerfile of SQLite3
 
