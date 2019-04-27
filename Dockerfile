@@ -1,4 +1,4 @@
-FROM alpine AS build-env
+FROM keinos/alpine:latest AS build-env
 
 RUN apk add --update alpine-sdk
 
@@ -10,7 +10,7 @@ RUN wget http://www.sqlite.org/2019/$NAME_FILE.tar.gz && \
     make install && \
     sqlite3 --version
 
-FROM alpine  
+FROM alpine:latest
 COPY --from=build-env /usr/bin/sqlite3 /usr/bin/sqlite3
 COPY run-test.sh /run-test.sh
 CMD sqlite3
