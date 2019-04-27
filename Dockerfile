@@ -1,14 +1,18 @@
 FROM keinos/alpine:latest AS build-env
 
-RUN apk add --update alpine-sdk
-
-ENV NAME_FILE sqlite-autoconf-3280000
-RUN wget http://www.sqlite.org/2019/$NAME_FILE.tar.gz && \
-    tar xvfz $NAME_FILE.tar.gz && \
-    ./$NAME_FILE/configure --prefix=/usr && \
+COPY run-test.sh /run-test.sh
+RUN apk add --update \
+      alpine-sdk  \
+      tcl && \
+    wget \
+      -O sqlite.tar.gz \
+      https://www.sqlite.org/src/tarball/sqlite.tar.gz?r=release && \
+    tar xvfz sqlite.tar.gz && \
+    ./sqlite/configure --prefix=/usr && \
     make && \
     make install && \
-    sqlite3 --version
+    sqlite3 --version && \
+    /run-test.sh
 
 FROM alpine:latest
 COPY --from=build-env /usr/bin/sqlite3 /usr/bin/sqlite3
