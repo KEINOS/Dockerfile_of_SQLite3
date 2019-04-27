@@ -12,7 +12,7 @@ Docker image of the latest SQLite3 version.
 
 ### Pull latest image
 
-Docker will pull the latest image before use, though you can pull(download) the latest image manually.
+Docker will pull the latest image when use. Though you can pull(download) the latest image manually as below:
 
 ```shellsession
 $ docker pull keinos/sqlite3:latest
@@ -20,6 +20,8 @@ $ docker pull keinos/sqlite3:latest
 ```
 
 ### Interactive
+
+Running `sqlite3` command inside the container interactively.
 
 ```shellsession
 $ docker run --rm -it keinos/sqlite3
