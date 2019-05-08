@@ -5,8 +5,10 @@
 Docker image of the latest SQLite3 version.
 
 - Docker image: `keinos/sqlite3:latest`
-- GitHub: <https://github.com/KEINOS/Dockerfile_of_SQLite3>
-- Docker Hub: <https://hub.docker.com/r/keinos/sqlite3>
+- Repositories:
+  - Image: https://hub.docker.com/r/keinos/sqlite3 @ DockerHub
+  - Source: https://github.com/KEINOS/Dockerfile_of_SQLite3 @ GitHub
+- Issues: https://github.com/KEINOS/Dockerfile_of_SQLite3/issues @ GitHub
 
 ## Usage
 
