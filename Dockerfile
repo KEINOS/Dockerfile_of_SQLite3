@@ -14,7 +14,7 @@ RUN apk add --update \
     sqlite3 --version && \
     /run-test.sh
 
-FROM alpine:latest
+FROM keinos/alpine:latest
 COPY --from=build-env /usr/bin/sqlite3 /usr/bin/sqlite3
 COPY run-test.sh /run-test.sh
 CMD sqlite3
