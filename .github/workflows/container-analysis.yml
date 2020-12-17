@@ -1,0 +1,18 @@
+# Container Image Scan
+#
+# This action adds some additional checks to help secure the Docker image made.
+# It internally uses Trivy and Dockle for running certain kinds of scans on these images.
+# - For more details see: https://github.com/marketplace/actions/container-image-scan
+on: [push]
+
+jobs:
+  vulnerability-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+
+    - run: docker build -t test:local .
+
+    - uses: Azure/container-scan@v0
+      with:
+        image-name: test:local
