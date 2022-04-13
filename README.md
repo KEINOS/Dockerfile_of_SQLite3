@@ -5,10 +5,33 @@
 Docker image of the latest SQLite3 version.
 
 - Docker image: `keinos/sqlite3:latest`
+
+<details><summary>Build it locally</summary>
+
+```shellsession
+$ git clone https://github.com/KEINOS/Dockerfile_of_SQLite3.git
+$ cd Dockerfile_of_SQLite3
+$ docker build -t keinos/sqlite3:latest .
+...
+```
+
+</details>
+
+<details><summary>Image and Repository Info</summary>
+
+- Current SQLite3 version: [VERSION_SQLite3.txt](https://github.com/KEINOS/Dockerfile_of_SQLite3/blob/master/VERSION_SQLite3.txt)
 - Repositories:
   - Image: https://hub.docker.com/r/keinos/sqlite3 @ DockerHub
-  - Source: https://github.com/KEINOS/Dockerfile_of_SQLite3 @ GitHub
+  - Dockerfile: https://github.com/KEINOS/Dockerfile_of_SQLite3 @ GitHub
 - Issues: https://github.com/KEINOS/Dockerfile_of_SQLite3/issues @ GitHub
+- Build Info:
+  - Base Image: `alpine:latest`
+  - SQLite3 Source: [https://www.sqlite.org/src/](https://www.sqlite.org/src/doc/trunk/README.md) @ SQLite.org
+  - Basic Vulnerability Scan:
+    - Snyk and Azure Container Scan.
+    - See the [Security overview](https://github.com/KEINOS/Dockerfile_of_SQLite3/security) for the details.
+
+</details>
 
 ## Usage
 
@@ -26,14 +49,16 @@ $ docker pull keinos/sqlite3:latest
 Running `sqlite3` command inside the container interactively.
 
 ```shellsession
-$ docker run --rm -it keinos/sqlite3
+$ docker run --rm -it -v "$(pwd)/your.db:/your.db" keinos/sqlite3
 SQLite version 3.28.0 2019-04-16 19:49:53
 Enter ".help" for usage hints.
 Connected to a transient in-memory database.
 Use ".open FILENAME" to reopen on a persistent database.
-sqlite>
+sqlite> .open /your.db
 sqlite> .quit
 ```
+
+- Note that you need to mount the DB file as a volume to the container.
 
 ### Command
 

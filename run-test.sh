@@ -1,4 +1,8 @@
 #!/usr/bin/env sh
+# -----------------------------------------------------------------------------
+#  This script executes basic commands to test if the sqlite3 command works
+#  correctly.
+# -----------------------------------------------------------------------------
 
 which sqlite3 >/dev/null || {
   echo 'sqlite3 command not found.' >&2
@@ -9,6 +13,7 @@ name_file_db='test.db'
 path_dir_tmp=$(dirname "$(mktemp -u)")
 path_file_db="${path_dir_tmp}/${name_file_db}"
 
+# Remove the existing test database
 rm -f "$path_file_db"
 
 echo '- Creating test DB:'

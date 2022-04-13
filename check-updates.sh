@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
-# This script checks if there's an update in SQLite3 then commit/push the changes.
-# Exits with "1"(false) if no update found. If update found then
-# it will update and exits with "0"(true) when no error occurs.
+# -----------------------------------------------------------------------------
+#  This script updates the VERSION_SQLite3.txt. It checks if there's an update
+#  in SQLite3 then commit/push the changes.
+#  If there is no update, it exits with status 1; if there is an update, it
+#  performs the update and returns the resulting status code.
+#
+#  - Notes:
+#    - This script must be run in the local.
+#    - This script will `prune` the contaier and images.
+# -----------------------------------------------------------------------------
 
 set -eu
 
