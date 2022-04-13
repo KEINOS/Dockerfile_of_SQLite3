@@ -37,13 +37,11 @@ FROM alpine:latest
 COPY --from=build /usr/bin/sqlite3 /usr/bin/sqlite3
 COPY run-test.sh /run-test.sh
 
-# Create a group and user for SQLite3 to avoid: Dockle CIS-DI-0001
+# Create a user and group for SQLite3 to avoid: Dockle CIS-DI-0001
 ENV \
   USER_SQLITE=sqlite \
   GROUP_SQLITE=sqlite
-
 RUN \
-  # Create user and group
   addgroup -S $GROUP_SQLITE && \
   adduser  -S $USER_SQLITE -G $GROUP_SQLITE
 
