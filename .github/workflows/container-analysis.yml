@@ -11,7 +11,7 @@
 # issues, monitor images for newly disclosed vulnerabilities in Snyk and
 # fail PR checks for new vulnerabilities, see https://github.com/snyk/actions/
 
-name: Container Scan
+name: Snyk Docker Scan
 
 on:
   push:
@@ -39,17 +39,6 @@ jobs:
 
     - name: Build a Docker image
       run: docker build -t keinos/sqlite3:test .
-
-    - name: Run Azure container scan to check Docker image for vulnerabilities
-      # This step adds some additional checks to help secure the Docker image made.
-      # It internally uses Trivy and Dockle for running certain kinds of scans on these images.
-      # - For more details see: https://github.com/marketplace/actions/container-image-scan
-      # - Note that env var "DOCKER_CONTENT_TRUST" must be set to 1.(Dockle: CIS-DI-0005)
-      uses: Azure/container-scan@v0.1
-      env:
-        DOCKER_CONTENT_TRUST: 1
-      with:
-        image-name: keinos/sqlite3:test
 
     - name: Run Snyk to check Docker image for vulnerabilities
       # Snyk can be used to break the build when it detects vulnerabilities.

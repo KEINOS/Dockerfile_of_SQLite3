@@ -1,0 +1,26 @@
+name: Azure Container Scan
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ master ]
+  schedule:
+    - cron: '45 0 * * 0'
+
+jobs:
+  vulnerability-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Pre pull alpine image for stability
+      run : docker pull alpine:latest
+    - name: Build a Docker image
+      run: docker build -t keinos/sqlite3:test .
+    - name: Run Azure container scan to check Docker image for vulnerabilities
+      uses: Azure/container-scan@v0.1
+      env:
+        DOCKER_CONTENT_TRUST: 1
+      with:
+        image-name: keinos/sqlite3:test
