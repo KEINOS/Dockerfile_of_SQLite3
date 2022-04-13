@@ -1,7 +1,4 @@
-[![](https://images.microbadger.com/badges/image/keinos/sqlite3.svg)](https://hub.docker.com/r/keinos/sqlite3 "DockerHub")
-[![](https://img.shields.io/docker/cloud/automated/keinos/sqlite3.svg)](https://hub.docker.com/r/keinos/sqlite3 "Docker Cloud Automated build")
-[![](https://img.shields.io/docker/cloud/build/keinos/sqlite3.svg)](https://hub.docker.com/r/keinos/sqlite3/builds "Docker Cloud Build Status")
-[![](https://github.com/KEINOS/Dockerfile_of_SQLite3/workflows/.github/workflows/container-analysis.yml/badge.svg)](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions?query=workflow%3A.github%2Fworkflows%2Fcontainer-analysis.yml "Check vulnerabilities and best practices violation")
+[![Container Scan](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container-analysis.yml/badge.svg)](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container-analysis.yml "Check vulnerabilities and best practices violation")
 
 # Dockerfile of SQLite3
 

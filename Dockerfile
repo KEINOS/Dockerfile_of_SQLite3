@@ -1,9 +1,14 @@
-FROM keinos/alpine:latest AS build-env
+# -----------------------------------------------------------------------------
+#  Build Stage
+# -----------------------------------------------------------------------------
+FROM alpine:latest AS build
 
 COPY run-test.sh /run-test.sh
 
 RUN \
-  apk add --update \
+  apk update && \
+  apk upgrade && \
+  apk add \
     alpine-sdk \
     build-base  \
     tcl-dev \
@@ -25,9 +30,11 @@ RUN \
   && /run-test.sh
 
 # -----------------------------------------------------------------------------
-FROM keinos/alpine:latest
+#  Main Stage
+# -----------------------------------------------------------------------------
+FROM alpine:latest
 
-COPY --from=build-env /usr/bin/sqlite3 /usr/bin/sqlite3
+COPY --from=build /usr/bin/sqlite3 /usr/bin/sqlite3
 COPY run-test.sh /run-test.sh
 
 # Create a group and user for SQLite3 to avoid: Dockle CIS-DI-0001
@@ -35,10 +42,16 @@ ENV \
   USER_SQLITE=sqlite \
   GROUP_SQLITE=sqlite
 
-RUN addgroup -S $GROUP_SQLITE \
-  && adduser  -S $USER_SQLITE -G $GROUP_SQLITE
+RUN \
+  # Create user and group
+  addgroup -S $GROUP_SQLITE && \
+  adduser  -S $USER_SQLITE -G $GROUP_SQLITE
 
+# Set user
 USER $USER_SQLITE
+
+# Run simple test
+RUN /run-test.sh
 
 # Set container's default command as `sqlite3`
 CMD /usr/bin/sqlite3
