@@ -45,7 +45,7 @@ jobs:
       # It internally uses Trivy and Dockle for running certain kinds of scans on these images.
       # - For more details see: https://github.com/marketplace/actions/container-image-scan
       # - Note that env var "DOCKER_CONTENT_TRUST" must be set to 1.(Dockle: CIS-DI-0005)
-      uses: Azure/container-scan@v0
+      uses: Azure/container-scan@v0.1
       env:
         DOCKER_CONTENT_TRUST: 1
       with:
