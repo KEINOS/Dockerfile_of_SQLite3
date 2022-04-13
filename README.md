@@ -1,4 +1,5 @@
-[![Container Scan](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container-analysis.yml/badge.svg)](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container-analysis.yml "Check vulnerabilities and best practices violation")
+[![Snyk Docker Scan](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container-analysis.yml/badge.svg)](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container-analysis.yml)
+[![Azure Container Scan](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container-scan.yml/badge.svg)](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container-scan.yml)
 
 # Dockerfile of SQLite3
 
