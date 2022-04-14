@@ -22,4 +22,4 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push image
-        run: ./check-updates.sh --push
+        run: ./check-updates.sh --force --push
