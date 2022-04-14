@@ -14,10 +14,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+
     - name: Pre pull alpine image for stability
       run : docker pull alpine:latest
+
     - name: Build a Docker image
       run: docker build -t keinos/sqlite3:test .
+
     - name: Run Azure container scan to check Docker image for vulnerabilities
       uses: Azure/container-scan@v0.1
       env:

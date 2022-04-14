@@ -24,19 +24,14 @@ on:
 jobs:
   automated_build:
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: read
-      packages: write
-
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Update VERSION_SQLite3.txt
-        run: check-updates.sh
+        run: ./check-updates.sh
 
-      - name: Create Pull Request on Change
-        uses: peter-evans/create-pull-request@v3
+      - name: Create pull request on any file change
+        uses: peter-evans/create-pull-request@v4
         with:
             token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
