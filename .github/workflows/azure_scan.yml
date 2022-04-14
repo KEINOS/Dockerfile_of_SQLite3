@@ -7,6 +7,7 @@ on:
   pull_request:
     branches: [ master ]
   schedule:
+    # Runs at 00:45 UTC on Sunday (JST: AM 05:45 on every Monday)
     - cron: '45 0 * * 0'
 
 jobs:

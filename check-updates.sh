@@ -5,14 +5,15 @@ help=$(
   This script updates the VERSION_SQLite3.txt and the Docker image.
 -----------------------------------------------------------------------------
  - Options:
+   --help  : Shows this help.
    --force : Force the update process even if the version is the same.
    --commit: Git commit the version changes.
    --push  : Push the image to Docker Hub. If `--commit` is set it will push
              the git commit to GitHub as well.
 
  - Notes:
-   - If there is no update, it exits with status 0.
-   - This script will `prune` the unused contaier and images.
+   - By default, if there are no updates, the script exits with status 0.
+   - This script removes ("prunes") unused containers and images.
 HEREDOC
 )
 

@@ -3,36 +3,29 @@
 
 # Dockerfile of SQLite3
 
-Docker image of the latest SQLite3 version.
+Alpine Docker image of SQLite3 built from the latest source code.
 
-- Pull the latest build: `docker pull keinos/sqlite3:latest`
-- Pull the version tagged build: `docker pull keinos/sqlite3:3.38.2`
-  - [Available tags](https://hub.docker.com/r/keinos/sqlite3/tags) @ DockerHub
-
-<details><summary>Build it locally</summary>
-
-```shellsession
-$ git clone https://github.com/KEINOS/Dockerfile_of_SQLite3.git
-$ cd Dockerfile_of_SQLite3
-$ docker build -t keinos/sqlite3:latest .
-...
+```bash
+docker pull keinos/sqlite3:latest
 ```
 
-</details>
-
-<details><summary>Image and Repository Info</summary>
-
+- [View Available Tags (SQLite version)](https://hub.docker.com/r/keinos/sqlite3/tags) @ DockerHub
 - Current SQLite3 version: [VERSION_SQLite3.txt](https://github.com/KEINOS/Dockerfile_of_SQLite3/blob/master/VERSION_SQLite3.txt)
-- Repositories:
-  - Image: https://hub.docker.com/r/keinos/sqlite3 @ DockerHub
-  - Dockerfile: https://github.com/KEINOS/Dockerfile_of_SQLite3 @ GitHub
-- Issues: https://github.com/KEINOS/Dockerfile_of_SQLite3/issues @ GitHub
+
+<details><summary>Image Information (Dockerfile, Security Scan, etc.)</summary>
+
+- Repositories/Registries:
+  - [Image Registry](https://hub.docker.com/r/keinos/sqlite3)  @ DockerHub
+  - [Dockerfile](https://github.com/KEINOS/Dockerfile_of_SQLite3/blob/master/Dockerfile) @ GitHub
+  - [Issues](https://github.com/KEINOS/Dockerfile_of_SQLite3/issues) @ GitHub
 - Build Info:
   - Base Image: `alpine:latest`
   - SQLite3 Source: [https://www.sqlite.org/src/](https://www.sqlite.org/src/doc/trunk/README.md) @ SQLite.org
-  - Basic Vulnerability Scan:
-    - Snyk and Azure Container Scan.
-    - See the [Security overview](https://github.com/KEINOS/Dockerfile_of_SQLite3/security) for the details.
+  - Update Interval: [Once a week](https://github.com/KEINOS/Dockerfile_of_SQLite3/blob/master/.github/workflows/weekly-update.yml)
+- Basic Vulnerability Scan:
+  - [Snyk Docker Scan](https://github.com/KEINOS/Dockerfile_of_SQLite3/blob/master/.github/workflows/snyk_scan.yml) and [Azure Container Scan](https://github.com/KEINOS/Dockerfile_of_SQLite3/blob/master/.github/workflows/azure_scan.yml) on push, PR and merge.
+  - Scan Interval: Once a week.
+  - See the [Security overview](https://github.com/KEINOS/Dockerfile_of_SQLite3/security) for the details.
 
 </details>
 
@@ -44,6 +37,15 @@ Docker will pull the latest image when it's used. Though, you can pull (download
 
 ```shellsession
 $ docker pull keinos/sqlite3:latest
+...
+```
+
+Or, you can build the latest image locally as below:
+
+```shellsession
+$ git clone https://github.com/KEINOS/Dockerfile_of_SQLite3.git
+$ cd Dockerfile_of_SQLite3
+$ docker build -t keinos/sqlite3:latest .
 ...
 ```
 
@@ -86,3 +88,14 @@ $ docker run --rm keinos/sqlite3 /run-test.sh
 $ echo $?
 0
 ```
+
+[Let us know](https://github.com/KEINOS/Dockerfile_of_SQLite3/issues) if you have any test to be included.
+
+## TODO
+
+- [ ] ARM support for DockerHub ([Issue #2](https://github.com/KEINOS/Dockerfile_of_SQLite3/issues/2))
+
+## License
+
+- [MIT License](https://github.com/KEINOS/Dockerfile_of_SQLite3/blob/master/LICENSE.md) by [The Dockerfile of SQLite3 Contributors](https://github.com/KEINOS/Dockerfile_of_SQLite3/graphs/contributors).
+  - SQLite: [Public Domain](https://sqlite.org/copyright.html) by [D. Richard Hipp](https://en.wikipedia.org/wiki/D._Richard_Hipp) and [SQLite.org](https://sqlite.org/).

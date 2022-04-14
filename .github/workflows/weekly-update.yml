@@ -1,14 +1,17 @@
 # =============================================================================
-#  Weekly Module Update
+#  Weekly Version Check To Update
 # =============================================================================
-# This workflow runs weekly to update and test the latest `go.mod` version.
+# This workflow runs weekly, builds the latest SQLite source code and updates
+# the version file.
 #
-# If all the tests succeeds to run in all Go versions, it will create a new PR
-# of the `go.mod` and `go.sum`.
+# If all tests are successful and the SQLite version has changed, a new Pull
+# Request is created to update the version file.
 #
 # NOTE:
 # You need to set the `PERSONAL_ACCESS_TOKEN` environment variable in the repo's
+# settings at GitHub:
 #     [Settings]-[Secrets]-[Actions secrets]
+#
 # To generate a new token go to:
 #     https://github.com/settings/tokens
 #     * You need add the "repo" scope to the token but no more.
