@@ -1,4 +1,6 @@
-<!-- markdownlint-disable MD001 MD033 MD034 -->
+<!-- markdownlint-disable MD001 MD033 MD034 MD041 -->
+[![SQLite Version](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FKEINOS%2FDockerfile_of_SQLite3%2Fmaster%2FSQLite3-shields.io-badge.json)](https://github.com/KEINOS/Dockerfile_of_SQLite3/blob/master/VERSION_SQLite3.txt)
+
 # Dockerfile of SQLite3
 
 Docker image of the latest SQLite3 version.
