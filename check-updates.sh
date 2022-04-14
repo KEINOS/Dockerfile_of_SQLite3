@@ -28,6 +28,7 @@ set -eu
 #  Constants
 # -----------------------------------------------------------------------------
 NAME_FILE_VERSION="VERSION_SQLite3.txt"
+NAME_JSON_VERSION="SQLite3-shields.io-badge.json"
 NAME_TAG_IMAGE_TEST="test-$(base64 </dev/urandom | tr -cd 'a-z0-9' | head -c 10)"
 COLOR_RED='\033[0;31m'
 COLOR_GREEN='\033[0;32m'
@@ -100,6 +101,16 @@ echo "VERSION_SQLITE3='${VERSION_SQLITE3_LATEST}'" >"$NAME_FILE_VERSION" || {
   echoRed '- Fail to update NAME_FILE_VERSION.'
   exit 1
 }
+
+cat <<HEREDOC >"$NAME_JSON_VERSION"
+{
+  "schemaVersion": 1,
+  "label": "SQLite",
+  "message": "${VERSION_SQLITE3_SHORT}",
+  "color": "blue",
+  "namedLogo": "sqlite"
+}
+HEREDOC
 
 # Create latest and versioned tagged images
 echoGreen "- Creating tagged images ... "
