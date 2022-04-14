@@ -1,16 +1,16 @@
 name: Azure Container Scan
 
 on:
+  workflow_dispatch:
   push:
     branches: [ master ]
   pull_request:
-    # The branches below must be a subset of the branches above
     branches: [ master ]
   schedule:
     - cron: '45 0 * * 0'
 
 jobs:
-  vulnerability-check:
+  azure:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3

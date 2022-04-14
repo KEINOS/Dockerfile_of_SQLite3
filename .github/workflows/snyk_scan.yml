@@ -1,19 +1,7 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-# A sample workflow which checks out the code, builds a container
-# image using Docker and scans that image for vulnerabilities using
-# Snyk. The results are then uploaded to GitHub Security Code Scanning
-#
-# For more examples, including how to limit scans to only high-severity
-# issues, monitor images for newly disclosed vulnerabilities in Snyk and
-# fail PR checks for new vulnerabilities, see https://github.com/snyk/actions/
-
 name: Snyk Docker Scan
 
 on:
+  workflow_dispatch:
   push:
     branches: [ master ]
   pull_request:
@@ -26,7 +14,7 @@ permissions:
   contents: read
 
 jobs:
-  vulnerability-check:
+  snyk:
     permissions:
       contents: read # for actions/checkout to fetch code
       security-events: write # for github/codeql-action/upload-sarif to upload SARIF results

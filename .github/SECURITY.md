@@ -4,7 +4,11 @@
 
 Currently, only image built from the [latest source code](https://www.sqlite.org/src/doc/trunk/README.md) is available.
 
-If you need the tagged images, please let us know in the [Issues](https://github.com/KEINOS/Dockerfile_of_SQLite3/issues).
+Though, as of SQLite v3.38.2, we provide version tagged Docker images.
+
+```bash
+docker pull keinos/sqlite3:3.38.2
+```
 
 ## Vulnerability Policy
 

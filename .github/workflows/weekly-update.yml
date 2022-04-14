@@ -1,0 +1,42 @@
+# =============================================================================
+#  Weekly Module Update
+# =============================================================================
+# This workflow runs weekly to update and test the latest `go.mod` version.
+#
+# If all the tests succeeds to run in all Go versions, it will create a new PR
+# of the `go.mod` and `go.sum`.
+#
+# NOTE:
+# You need to set the `PERSONAL_ACCESS_TOKEN` environment variable in the repo's
+#     [Settings]-[Secrets]-[Actions secrets]
+# To generate a new token go to:
+#     https://github.com/settings/tokens
+#     * You need add the "repo" scope to the token but no more.
+# =============================================================================
+name: Weekly Update
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Runs at 20:00 UTC on Sun (JST: AM 05:00 on every Monday)
+    - cron: '0 20 * * SUN'
+
+jobs:
+  automated_build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Update VERSION_SQLite3.txt
+        run: check-updates.sh
+
+      - name: Create Pull Request on Change
+        uses: peter-evans/create-pull-request@v3
+        with:
+            token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}

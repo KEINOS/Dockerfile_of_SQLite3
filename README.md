@@ -1,11 +1,11 @@
-[![Snyk Docker Scan](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container-analysis.yml/badge.svg)](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container-analysis.yml)
-[![Azure Container Scan](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container-scan.yml/badge.svg)](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container-scan.yml)
-
+<!-- markdownlint-disable MD001 MD033 MD034 -->
 # Dockerfile of SQLite3
 
 Docker image of the latest SQLite3 version.
 
-- Docker image: `keinos/sqlite3:latest`
+- Pull the latest build: `docker pull keinos/sqlite3:latest`
+- Pull the version tagged build: `docker pull keinos/sqlite3:3.38.2`
+  - [Available tags](https://hub.docker.com/r/keinos/sqlite3/tags) @ DockerHub
 
 <details><summary>Build it locally</summary>
 
