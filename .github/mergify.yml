@@ -6,10 +6,10 @@ pull_request_rules:
       - title~=^Changes
       - files=VERSION_SQLite3.txt
       - "#files=1"
-      - check-success=Azure Container Scan / azure
-      - check-success=Snyk Docker Scan / snyk (pull_request)
-      - check-success=Code scanning results / Snyk Container
-      - check-success=[container-scan] keinos/sqlite3:test
+      - check-success="azure"
+      - check-success="snyk"
+      - check-success="Snyk Container"
+      - check-success="[container-scan] keinos/sqlite3:test"
     actions:
       merge:
         method: merge
