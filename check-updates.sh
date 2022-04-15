@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 help=$(
   cat <<'HEREDOC'
 -----------------------------------------------------------------------------
@@ -7,13 +8,8 @@ help=$(
  - Options:
    --help  : Shows this help.
    --force : Force the update process even if the version is the same.
-   --commit: Git commit the version changes.
-   --push  : Push the image to Docker Hub. If `--commit` is set it will push
-             the git commit to GitHub as well.
-
  - Notes:
    - By default, if there are no updates, the script exits with status 0.
-   - This script removes ("prunes") unused containers and images.
 HEREDOC
 )
 
@@ -42,23 +38,10 @@ COLOR_NONE='\033[0m'
 echoGreen() {
   echo -e "${COLOR_GREEN}${*}${COLOR_NONE}"
 }
+
 echoRed() {
   echo -e "${COLOR_RED}${*}${COLOR_NONE}"
 }
-
-# Define cleanup function
-cleanup() {
-  echoGreen "- Cleaning up ..."
-  echoGreen "  - Removing test image ..."
-  docker image rm "$NAME_TAG_IMAGE_TEST" -f
-  echoGreen "  - Removing prune containers ..."
-  docker container prune -f
-  echoGreen "  - Removing prune images ..."
-  docker image prune -f
-}
-
-# Ensure cleanup function is called on exit
-trap cleanup EXIT
 
 # -----------------------------------------------------------------------------
 #  Main
@@ -113,39 +96,9 @@ cat <<HEREDOC >"$NAME_JSON_VERSION"
 }
 HEREDOC
 
-# Create latest and versioned tagged images
-echoGreen "- Creating tagged images ... "
-NAME_TAG_IMAGE_LATEST="keinos/sqlite3:latest"
-NAME_TAG_IMAGE_VERSIONED="keinos/sqlite3:${VERSION_SQLITE3_SHORT}"
-docker build --tag "$NAME_TAG_IMAGE_LATEST" .
-docker build --tag "$NAME_TAG_IMAGE_VERSIONED" .
-
-# Push built Docker images
-echo "$@" | grep 'push' >/dev/null && {
-  echoGreen "- Pushing tagged images ... "
-
-  echo "  Pushing versioned image: ${NAME_TAG_IMAGE_VERSIONED}"
-  docker push "$NAME_TAG_IMAGE_VERSIONED"
-
-  echo "  Pushing latest image: ${NAME_TAG_IMAGE_LATEST}"
-  docker push "$NAME_TAG_IMAGE_LATEST"
-}
-
-# Commit git changes
-echo "$@" | grep 'commit' >/dev/null && {
-  echoGreen "- Git committing changes ... "
-  git add .
-  git commit -m "Update SQLite3 to ${VERSION_SQLITE3_SHORT}"
-
-  echo "$@" | grep 'push' && {
-    echoGreen "- Pushing committed git changes ... "
-    git push
-  }
-
-  exit $?
-}
-
 echoGreen "- Done."
-echo
-echo "Please commit and push the changes."
+git status | grep modified >/dev/null && {
+  echoGreen "- There are some changes. Please commit and push the changes."
+}
+
 echo

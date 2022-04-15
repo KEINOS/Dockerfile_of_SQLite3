@@ -1,10 +1,14 @@
 # -----------------------------------------------------------------------------
 #  Build Stage
+#
+#  We split the RUN layers to cache them separately to fasten the rebuild process
+#  in case of build fails during multi-stage builds.
 # -----------------------------------------------------------------------------
 FROM alpine:latest AS build
 
 COPY run-test.sh /run-test.sh
 
+# Install dependencies
 RUN \
   apk update && \
   apk upgrade && \
@@ -15,19 +19,24 @@ RUN \
     tk-dev \
     mesa-dev \
     jpeg-dev \
-    libjpeg-turbo-dev \
-  # Download latest release
-  && wget \
+    libjpeg-turbo-dev
+
+# Download latest release
+RUN \
+  wget \
     -O sqlite.tar.gz \
-    https://www.sqlite.org/src/tarball/sqlite.tar.gz?r=release \
-  && tar xvfz sqlite.tar.gz \
-  # Configure and make SQLite3 binary
-  && ./sqlite/configure --prefix=/usr \
-  && make \
-  && make install \
+    https://www.sqlite.org/src/tarball/sqlite.tar.gz?r=release && \
+  tar xvfz sqlite.tar.gz
+
+# Configure and make SQLite3 binary
+RUN \
+  ./sqlite/configure --prefix=/usr && \
+  make && \
+  make install \
+  && \
   # Smoke test
-  && sqlite3 --version \
-  && /run-test.sh
+  sqlite3 --version && \
+  /run-test.sh
 
 # -----------------------------------------------------------------------------
 #  Main Stage
