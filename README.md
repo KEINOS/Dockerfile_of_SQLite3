@@ -53,25 +53,44 @@ $ docker build -t keinos/sqlite3:latest .
 Running `sqlite3` command inside the container interactively.
 
 ```shellsession
-$ docker run --rm -it -v "$(pwd)/your.db:/your.db" keinos/sqlite3
+$ docker run --rm -it -v "$(pwd):/workspace" -w /workspace keinos/sqlite3
 SQLite version 3.28.0 2019-04-16 19:49:53
 Enter ".help" for usage hints.
 Connected to a transient in-memory database.
 Use ".open FILENAME" to reopen on a persistent database.
-sqlite> .open /your.db
+sqlite> .open ./sample.db
+sqlite> CREATE TABLE table_sample(timestamp TEXT, description TEXT);
+sqlite> INSERT INTO table_sample VALUES(datetime("now"),"First sample data. Foo");
+sqlite> INSERT INTO table_sample VALUES(datetime("now"),"Second sample data. Bar");
 sqlite> .quit
+$ ls
+sample.db
 ```
 
-- Note that you need to mount the DB file as a volume to the container.
+- Note that you need to mount the working directory as a volume to the container.
 
 ### Command
 
-Running `sqlite3 --version` command for example.
+- Running `sqlite3 --version` command:
 
 ```shellsession
 $ docker run --rm keinos/sqlite3 sqlite3 --version
-3.28.0 2019-04-16 19:49:53 884b4b7e502b4e991677b53971277adfaf0a04a284f8e483e2553d0f83156b50
+3.38.2 2022-03-26 13:51:10 d33c709cc0af66bc5b6dc6216eba9f1f0b40960b9ae83694c986fbf4c1d6f08f
 ```
+
+- Executing SQL query to the mounted database:
+
+```shellsession
+$ ls
+sample.db
+$ docker run --rm -it -v "$(pwd):/workspace" keinos/sqlite3 sqlite3 /workspace/sample.db -header -column 'SELECT rowid, * FROM table_sample;'
+rowid  timestamp            description
+-----  -------------------  -----------------------
+1      2022-04-16 14:09:52  First sample data. Foo
+2      2022-04-16 14:09:58  Second sample data. Bar
+```
+
+- Note that you need to mount the working directory as a volume to the container.
 
 ### Run test
 
@@ -81,18 +100,26 @@ You can run the script to see if the container and `sqlite3` binary is working.
 
 ```shellsession
 $ docker run --rm keinos/sqlite3 /run-test.sh
-/usr/bin/sqlite3
-2019-04-27 09:05:09|First sample data. Hoo
-2019-04-27 09:05:09|Second sample data. Hoo
+- Creating test DB ... created
+rowid  timestamp            description
+-----  -------------------  -----------------------
+1      2022-04-16 14:18:34  First sample data. Hoo
+2      2022-04-16 14:18:34  Second sample data. Bar
+- Testing ...
+  1st row value ... OK
+  2nd row value ... OK
+
+- Test result:
+success
 $ echo $?
 0
 ```
 
 [Let us know](https://github.com/KEINOS/Dockerfile_of_SQLite3/issues) if you have any test to be included.
 
-## TODO
+## ToDo
 
-- [ ] ARM support for DockerHub ([Issue #2](https://github.com/KEINOS/Dockerfile_of_SQLite3/issues/2))
+- [x] ~~ARM support for DockerHub~~ (Issue #[2](https://github.com/KEINOS/Dockerfile_of_SQLite3/issues/2), PR #[20](https://github.com/KEINOS/Dockerfile_of_SQLite3/pull/20))
 
 ## License
 
