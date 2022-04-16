@@ -1,6 +1,4 @@
 <!-- markdownlint-disable MD001 MD033 MD034 MD041 -->
-[![SQLite Version](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FKEINOS%2FDockerfile_of_SQLite3%2Fmaster%2FSQLite3-shields.io-badge.json)](https://github.com/KEINOS/Dockerfile_of_SQLite3/blob/master/VERSION_SQLite3.txt)
-
 # Dockerfile of SQLite3
 
 Alpine Docker image of SQLite3 built from the latest source code.
@@ -10,7 +8,8 @@ docker pull keinos/sqlite3:latest
 ```
 
 - [View Available Tags (SQLite version)](https://hub.docker.com/r/keinos/sqlite3/tags) @ DockerHub
-- Current SQLite3 version: [VERSION_SQLite3.txt](https://github.com/KEINOS/Dockerfile_of_SQLite3/blob/master/VERSION_SQLite3.txt)
+- Current SQLite3 version: [![SQLite Version](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FKEINOS%2FDockerfile_of_SQLite3%2Fmaster%2FSQLite3-shields.io-badge.json)](https://github.com/KEINOS/Dockerfile_of_SQLite3/blob/master/VERSION_SQLite3.txt)
+- Supported Architecture: AMD64, ARM64, ARMv6, ARMv7
 
 <details><summary>Image Information (Dockerfile, Security Scan, etc.)</summary>
 
