@@ -1,9 +1,12 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 # =============================================================================
 #  Simple Test Script for sqlite3 command
 # =============================================================================
 #  This script executes basic commands to test if the sqlite3 command works
 #  correctly. Feel free to PR any additional tests you would like to add.
+#
+#  Note: This script must be POSIX compatible since the image does not contain
+#        shells such as bash or zsh. Use `shellcheck` to check for any issues.
 
 # Check if sqlite3 is installed
 which sqlite3 >/dev/null || {
@@ -24,11 +27,11 @@ rm -f "$path_file_db"
 
 # AssertContains retuns true if the 1st argument is a substring of the 2nd argument.
 AssertContains() {
-  local s="$1"
-  local contains="$2"
+  _tmp_s="$1"
+  _tmp_contains="$2"
 
-  if [[ "$s" != *"$contains"* ]]; then
-    echo "'${s}' does not contain '${contains}'" >&2
+  if echo "$_tmp_s" | grep -q "$_tmp_contains"; then
+    echo "'${_tmp_s}' does not contain '${_tmp_contains}'" >&2
     return 1
   else
     return 0
@@ -37,12 +40,12 @@ AssertContains() {
 
 # AssertEqual returns true if two arguments are equal.
 AssertEqual() {
-  local expect="$1"
-  local actual="$2"
+  _tmp_expect="$1"
+  _tmp_actual="$2"
 
-  if [[ "$expect" != "$actual" ]]; then
-    echo "Expect: ${expect}" >&2
-    echo "Actual: ${actual}" >&2
+  if "$_tmp_expect" != "$_tmp_actual"; then
+    echo "Expect: ${_tmp_expect}" >&2
+    echo "Actual: ${_tmp_actual}" >&2
     return 1
   else
     return 0
@@ -56,19 +59,19 @@ RunQuery() {
 
 # TestContains tests if the results contains the given substring.
 TestContains() {
-  local title="$1"    # The title of the test
-  local query="$2"    # The query to run
-  local contains="$3" # The substring to look for
+  _testc_title="$1"    # The title of the test
+  _testc_query="$2"    # The query to run
+  _testc_contains="$3" # The substring to look for
 
-  printf "  %s ... " "$title"
+  printf "  %s ... " "$_testc_title"
 
   # Run query
-  output=$(RunQuery "$query")
+  output=$(RunQuery "$_testc_query")
 
   # Assertion
-  msgError=$(AssertContains "$output" "$contains" 2>&1) || {
+  msgError=$(AssertContains "$output" "$_testc_contains" 2>&1) || {
     echo 'NG'
-    echo "  Query runned: ${query}"
+    echo "  Query runned: ${_testc_query}"
     echo "  Error Msg: ${msgError}"
     return 1
   }
@@ -79,19 +82,19 @@ TestContains() {
 
 # TestEquals tests if the results is equal to the given string.
 TestEquals() {
-  local title="$1"    # The title of the test
-  local query="$2"    # The query to run
-  local expect="$3" # The substring to look for
+  _teste_title="$1"    # The title of the test
+  _teste_query="$2"    # The query to run
+  _teste_expect="$3" # The substring to look for
 
-  printf "  %s ... " "$title"
+  printf "  %s ... " "$_teste_title"
 
   # Run query
-  actual=$(RunQuery "$query")
+  actual=$(RunQuery "$_teste_query")
 
   # Assertion
-  msgError=$(AssertEqual "$expect" "$actual" 2>&1) || {
+  msgError=$(AssertEqual "$_teste_expect" "$actual" 2>&1) || {
     echo 'NG'
-    echo "  Query runned: ${query}"
+    echo "  Query runned: ${_teste_query}"
     echo "  Error Msg: ${msgError}"
     return 1
   }
