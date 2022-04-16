@@ -1,3 +1,7 @@
+# =============================================================================
+#  Trivy and Dockle check via Azure Container Scan Action
+# =============================================================================
+# See: https://github.com/Azure/container-scan
 name: Azure Container Scan
 
 on:
@@ -14,17 +18,18 @@ jobs:
   azure:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Pre pull alpine image for stability
-      run : docker pull alpine:latest
+      - name: Pre pull alpine image for stability
+        run : docker pull alpine:latest
 
-    - name: Build a Docker image
-      run: docker build -t keinos/sqlite3:test .
+      - name: Build a Docker image
+        run: docker build -t keinos/sqlite3:test .
 
-    - name: Run Azure container scan to check Docker image for vulnerabilities
-      uses: Azure/container-scan@v0.1
-      env:
-        DOCKER_CONTENT_TRUST: 1
-      with:
-        image-name: keinos/sqlite3:test
+      - name: Run Azure container scan to check Docker image for vulnerabilities
+        uses: Azure/container-scan@v0.1
+        env:
+          DOCKER_CONTENT_TRUST: 1
+        with:
+          image-name: keinos/sqlite3:test
