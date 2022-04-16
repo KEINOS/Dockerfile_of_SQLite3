@@ -30,7 +30,7 @@ AssertContains() {
   _tmp_s="$1"
   _tmp_contains="$2"
 
-  if echo "$_tmp_s" | grep -q "$_tmp_contains"; then
+  if ! echo "$_tmp_s" | grep "$_tmp_contains" >/dev/null; then
     echo "'${_tmp_s}' does not contain '${_tmp_contains}'" >&2
     return 1
   else
