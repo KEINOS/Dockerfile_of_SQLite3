@@ -5,7 +5,8 @@ pull_request_rules:
       - base=master
       - title~=^Changes
       - files=VERSION_SQLite3.txt
-      - "#files=1"
+      - files=SQLite3-shields.io-badge.json
+      - "#files=2"
       - check-success="azure"
       - check-success="snyk"
       - check-success="Snyk Container"
