@@ -7,9 +7,11 @@ Alpine Docker image of SQLite3 built from the latest source code.
 docker pull keinos/sqlite3:latest
 ```
 
-- [View Available Tags (SQLite version)](https://hub.docker.com/r/keinos/sqlite3/tags) @ DockerHub
 - Current SQLite3 version: [![SQLite Version](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FKEINOS%2FDockerfile_of_SQLite3%2Fmaster%2FSQLite3-shields.io-badge.json)](https://github.com/KEINOS/Dockerfile_of_SQLite3/blob/master/VERSION_SQLite3.txt)
-- Supported Architecture: AMD64, ARM64, ARMv6, ARMv7
+  - [View Available Tags (SQLite version)](https://hub.docker.com/r/keinos/sqlite3/tags) @ DockerHub
+- Supported Architecture:
+  - AMD64, ARM64, ARMv6, ARMv7
+- [![Snyk Docker Scan](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/snyk_scan.yml/badge.svg)](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/snyk_scan.yml) [![Azure Container Scan](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/azure_scan.yml/badge.svg)](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/azure_scan.yml)
 
 <details><summary>Image Information (Dockerfile, Security Scan, etc.)</summary>
 
