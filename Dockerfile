@@ -13,19 +13,19 @@ RUN \
   apk update && \
   apk upgrade && \
   apk add \
-    alpine-sdk \
-    build-base  \
-    tcl-dev \
-    tk-dev \
-    mesa-dev \
-    jpeg-dev \
-    libjpeg-turbo-dev
+  alpine-sdk \
+  build-base  \
+  tcl-dev \
+  tk-dev \
+  mesa-dev \
+  jpeg-dev \
+  libjpeg-turbo-dev
 
 # Download latest release
 RUN \
   wget \
-    -O sqlite.tar.gz \
-    https://www.sqlite.org/src/tarball/sqlite.tar.gz?r=release && \
+  -O sqlite.tar.gz \
+  https://www.sqlite.org/src/tarball/sqlite.tar.gz?r=release && \
   tar xvfz sqlite.tar.gz
 
 # Configure and make SQLite3 binary
@@ -52,7 +52,9 @@ ENV \
   GROUP_SQLITE=sqlite
 RUN \
   addgroup -S $GROUP_SQLITE && \
-  adduser  -S $USER_SQLITE -G $GROUP_SQLITE
+  adduser  -S $USER_SQLITE -G $GROUP_SQLITE && \
+  # Fix issue #32 (CVE-2022-3996)
+  apk --no-cache upgrade
 
 # Set user
 USER $USER_SQLITE
