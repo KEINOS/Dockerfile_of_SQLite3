@@ -54,20 +54,27 @@ source "$NAME_FILE_VERSION"
 
 # Build and run container to get the version
 echoGreen "- Building latest image to compare ..."
-docker build --tag "$NAME_TAG_IMAGE_TEST" .
+docker build --tag "$NAME_TAG_IMAGE_TEST" . || {
+  echo 'Fail to build the image.'
+  exit 1
+}
+
 VERSION_SQLITE3_LATEST=$(docker run --rm "$NAME_TAG_IMAGE_TEST" sqlite3 --version)
+VERSION_OS_LATEST=$(docker run --rm "$NAME_TAG_IMAGE_TEST" cat /etc/alpine-release)
 
 echoGreen "- Previous SQLite3 version was: ${VERSION_SQLITE3}"
 echoGreen "- Current  SQLite3 version is : ${VERSION_SQLITE3_LATEST}"
 
 # Compare version
 if [ "${VERSION_SQLITE3}" = "${VERSION_SQLITE3_LATEST}" ]; then
-  echoGreen '- No update found.'
-  # If not forced then show message and exit
-  echo "$@" | grep 'force' >/dev/null || {
-    echo '  To force create image use "--force" option.'
-    exit 0
-  }
+  if [ "${VERSION_OS:-unknown}" = "${VERSION_OS_LATEST}" ]; then
+    echoGreen '- No update found.'
+    # If not forced then show message and exit
+    echo "$@" | grep 'force' >/dev/null || {
+      echo '  To force create image use "--force" option.'
+      exit 0
+    }
+  fi
 fi
 
 echo "$@" | grep 'force' >/dev/null || {
@@ -82,6 +89,12 @@ VERSION_SQLITE3_SHORT=$(echo "$VERSION_SQLITE3_LATEST" | awk '{print $1}')
 
 # Update version (overwrites the version file)
 echo "VERSION_SQLITE3='${VERSION_SQLITE3_LATEST}'" >"$NAME_FILE_VERSION" || {
+  echoRed '- Fail to update NAME_FILE_VERSION.'
+  exit 1
+}
+
+# Append the OS version
+echo "VERSION_OS='${VERSION_OS_LATEST}'" >>"$NAME_FILE_VERSION" || {
   echoRed '- Fail to update NAME_FILE_VERSION.'
   exit 1
 }
