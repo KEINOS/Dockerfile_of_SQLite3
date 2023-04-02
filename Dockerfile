@@ -6,8 +6,6 @@
 # -----------------------------------------------------------------------------
 FROM alpine:latest AS build
 
-COPY run-test.sh /run-test.sh
-
 # Install dependencies
 RUN \
   apk update && \
@@ -32,11 +30,14 @@ RUN \
 RUN \
   ./sqlite/configure --prefix=/usr && \
   make && \
-  make install \
-  && \
+  make install && \
   # Smoke test
-  sqlite3 --version && \
-  /run-test.sh
+  sqlite3 --version
+
+# Copy the test script and run it
+COPY run-test.sh /run-test.sh
+
+RUN /run-test.sh
 
 # -----------------------------------------------------------------------------
 #  Main Stage

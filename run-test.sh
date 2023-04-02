@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
-# =============================================================================
-#  Simple Test Script for sqlite3 command
-# =============================================================================
+echo '============================================================================='
+echo '  Simple Test Script for sqlite3 command'
+echo '============================================================================='
 #  This script executes basic commands to test if the sqlite3 command works
 #  correctly. Feel free to PR any additional tests you would like to add.
 #
@@ -14,6 +14,10 @@ which sqlite3 >/dev/null || {
   exit 1
 }
 
+# Print the current version of sqlite3
+echo 'SQLite3 version:' "$(sqlite3 --version)"
+
+# Path to the test database
 name_file_db='test.db'
 path_dir_tmp=$(dirname "$(mktemp -u)")
 path_file_db="${path_dir_tmp}/${name_file_db}"
@@ -106,11 +110,13 @@ TestEquals() {
 # -----------------------------------------------------------------------------
 #  Create Test DB
 # -----------------------------------------------------------------------------
+#  Example from "Getting Started" @ https://sqlite.org/cli.html
 printf "%s ... " '- Creating test DB'
+
 sqlite3 "$path_file_db" <<'HEREDOC'
-  create table table_sample(timestamp text, description text);
-  insert into table_sample values(datetime("now"),"First sample data. Hoo");
-  insert into table_sample values(datetime("now"),"Second sample data. Bar");
+  create table tbl1(one text, two int);
+  insert into tbl1 values('hello!',10);
+  insert into tbl1 values('goodbye', 20);
 HEREDOC
 
 result=$?
@@ -123,7 +129,7 @@ echo 'created'
 sqlite3 "$path_file_db" <<'HEREDOC'
 .header on
 .mode column
-  select rowid, * from table_sample;
+  select rowid, * from tbl1;
 HEREDOC
 
 # -----------------------------------------------------------------------------
@@ -134,8 +140,8 @@ isFailed=0
 
 {
   title='1st row value'
-  query='SELECT description FROM table_sample WHERE rowid=1;'
-  expect='First sample data. Hoo'
+  query='SELECT one FROM tbl1 WHERE rowid=1;'
+  expect='hello!'
 
   TestEquals "$title" "$query" "$expect" || {
     isFailed=1
@@ -144,8 +150,8 @@ isFailed=0
 
 {
   title='2nd row value'
-  query='SELECT * FROM table_sample;'
-  contains='Second sample data. Bar'
+  query='SELECT * FROM tbl1;'
+  contains='goodbye|20'
 
   TestContains "$title" "$query" "$contains" || {
     isFailed=1
