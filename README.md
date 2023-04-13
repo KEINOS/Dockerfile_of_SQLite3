@@ -44,9 +44,7 @@ $ docker pull keinos/sqlite3:latest
 Or, you can build the latest image locally as below:
 
 ```shellsession
-$ git clone https://github.com/KEINOS/Dockerfile_of_SQLite3.git
-$ cd Dockerfile_of_SQLite3
-$ docker build -t keinos/sqlite3:latest .
+$ docker build -t sqlite3:local https://github.com/KEINOS/Dockerfile_of_SQLite3.git
 ...
 ```
 
