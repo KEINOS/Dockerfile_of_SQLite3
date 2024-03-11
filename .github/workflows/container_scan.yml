@@ -1,0 +1,56 @@
+# =============================================================================
+#  Container Scan with Dockle and Trivy
+# =============================================================================
+name: Container Scan
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  schedule:
+    # Runs at 00:45 UTC on Sunday (JST: AM 05:45 on every Monday)
+    - cron: '45 0 * * 0'
+
+env:
+  # See:
+  # https://github.com/goodwithtech/dockle/issues/188
+  # https://github.com/Azure/container-scan/issues/146
+  DOCKLE_HOST: "unix:///var/run/docker.sock"
+
+jobs:
+  dockle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Pre pull alpine image for stability
+        run : DOCKER_CONTENT_TRUST=1 docker pull alpine:latest
+
+      - name: Build a Docker image
+        run: docker build -t keinos/sqlite3:test .
+
+      - uses: goodwithtech/dockle-action@main
+        with:
+          image: 'keinos/sqlite3:test'
+          format: 'list'
+          exit-code: '1'
+          exit-level: 'warn'
+          accept-key: 'USER_SQLITE,GROUP_SQLITE'
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'keinos/sqlite3:test'
+          format: 'sarif'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@main
+        with:
+          sarif_file: 'trivy-results.sarif'
