@@ -29,12 +29,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Update VERSION_SQLite3.txt
         run: ./check-updates.sh
 
       - name: Create pull request on any file change
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v6
         with:
             token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
