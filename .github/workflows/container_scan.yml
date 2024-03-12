@@ -35,10 +35,17 @@ jobs:
       - uses: goodwithtech/dockle-action@main
         with:
           image: 'keinos/sqlite3:test'
-          format: 'list'
+          format: 'json'
+          output: 'result.json'
           exit-code: '1'
           exit-level: 'warn'
           accept-key: 'USER_SQLITE,GROUP_SQLITE'
+
+      - name: Upload Dockle scan results to GitHub
+        uses: actions/upload-artifact@v4
+        with:
+          name: DockleReport
+          path: result.json
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
