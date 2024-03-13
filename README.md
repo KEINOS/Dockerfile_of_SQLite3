@@ -7,11 +7,14 @@ Alpine Docker image of SQLite3 built from the latest source code.
 docker pull keinos/sqlite3:latest
 ```
 
-- Current SQLite3 version: [![SQLite Version](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FKEINOS%2FDockerfile_of_SQLite3%2Fmaster%2FSQLite3-shields.io-badge.json)](https://github.com/KEINOS/Dockerfile_of_SQLite3/blob/master/VERSION_SQLite3.txt)
+- Current SQLite3 version:
+  - [![SQLite Version](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FKEINOS%2FDockerfile_of_SQLite3%2Fmaster%2FSQLite3-shields.io-badge.json)](https://github.com/KEINOS/Dockerfile_of_SQLite3/blob/master/VERSION_SQLite3.txt)
   - [View Available Tags (SQLite version)](https://hub.docker.com/r/keinos/sqlite3/tags) @ DockerHub
 - Supported Architecture:
   - AMD64, ARM64, ARMv6, ARMv7
-- [![Snyk Docker Scan](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/snyk_scan.yml/badge.svg)](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/snyk_scan.yml) [![Azure Container Scan](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/azure_scan.yml/badge.svg)](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/azure_scan.yml)
+- Scan Status:
+  - [![Snyk Docker Scan](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/snyk_scan.yml/badge.svg)](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/snyk_scan.yml)
+  - [![Container Scan](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container_scan.yml/badge.svg)](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container_scan.yml)
 
 <details><summary>Image Information (Dockerfile, Security Scan, etc.)</summary>
 
@@ -24,7 +27,7 @@ docker pull keinos/sqlite3:latest
   - SQLite3 Source: [https://www.sqlite.org/src/](https://www.sqlite.org/src/doc/trunk/README.md) @ SQLite.org
   - Update Interval: [Once a week](https://github.com/KEINOS/Dockerfile_of_SQLite3/blob/master/.github/workflows/weekly-update.yml)
 - Basic Vulnerability Scan:
-  - [Snyk Docker Scan](https://github.com/KEINOS/Dockerfile_of_SQLite3/blob/master/.github/workflows/snyk_scan.yml) and [Azure Container Scan](https://github.com/KEINOS/Dockerfile_of_SQLite3/blob/master/.github/workflows/azure_scan.yml) on push, PR and merge.
+  - [Snyk Docker Scan](https://docs.snyk.io/integrate-with-snyk/snyk-ci-cd-integrations/github-actions-for-snyk-setup-and-checking-for-vulnerabilities/snyk-docker-action) and [Grype Container Scan](https://github.com/anchore/scan-action) on push, PR and merge.
   - Scan Interval: Once a week.
   - See the [Security overview](https://github.com/KEINOS/Dockerfile_of_SQLite3/security) for the details.
 
@@ -34,14 +37,19 @@ docker pull keinos/sqlite3:latest
 
 ### Pull the latest image
 
-Docker will pull the latest image when it's used. Though, you can pull (download) the latest image manually as below:
-
 ```shellsession
 $ docker pull keinos/sqlite3:latest
 ...
 ```
 
-Or, you can build the latest image locally as below:
+### Specify the version
+
+```shellsession
+$ docker pull keinos/sqlite3:3.44.2
+...
+```
+
+### Build locally
 
 ```shellsession
 $ docker build -t sqlite3:local https://github.com/KEINOS/Dockerfile_of_SQLite3.git
@@ -96,7 +104,7 @@ rowid  timestamp            description
 
 This container includes a [simple test script](https://github.com/KEINOS/Dockerfile_of_SQLite3/blob/master/run-test.sh).
 
-You can run the script to see if the container and `sqlite3` binary is working.
+You can run the script to see if the container and `sqlite3` binary is working. Though, not sutiable for HEALTHCHECK usage.
 
 ```shellsession
 $ docker run --rm keinos/sqlite3 /run-test.sh
@@ -115,7 +123,7 @@ $ echo $?
 0
 ```
 
-[Let us know](https://github.com/KEINOS/Dockerfile_of_SQLite3/issues) if you have any test to be included.
+- [Let us know](https://github.com/KEINOS/Dockerfile_of_SQLite3/issues) if you have any test to be included.
 
 ## ToDo
 

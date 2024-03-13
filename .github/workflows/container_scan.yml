@@ -1,7 +1,7 @@
 # =============================================================================
 #  Container Scan with Grype
 # =============================================================================
-name: Container Scan
+name: Grype Container Scan
 
 on:
   workflow_dispatch:
