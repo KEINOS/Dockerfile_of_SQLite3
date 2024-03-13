@@ -8,10 +8,10 @@ pull_request_rules:
         - files=VERSION_SQLite3.txt
         - files=SQLite3-shields.io-badge.json
       - "#files=2"
-      - check-success="azure"
-      - check-success="snyk"
-      - check-success="Snyk Container"
-      - check-success="[container-scan] keinos/sqlite3:test"
+      - check-success="Grype Container Scan / grype"
+      - check-success="Snyk Docker Scan / snyk"
+      - check-success="Code scanning results / Grype"
+      - check-success="Code scanning results / Snyk Container"
     actions:
       merge:
         method: merge
