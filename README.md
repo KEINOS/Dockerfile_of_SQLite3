@@ -13,7 +13,7 @@ docker pull keinos/sqlite3:latest
 - Supported Architecture:
   - AMD64, ARM64, ARMv6, ARMv7
 - Scan Status:
-  - [![Snyk Docker Scan](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/snyk_scan.yml/badge.svg)](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/snyk_scan.yml)
+  - [![Snyk Docker Scan](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container-analysis.yml/badge.svg)](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container-analysis.yml)
   - [![Container Scan](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container_scan.yml/badge.svg)](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container_scan.yml)
 
 <details><summary>Image Information (Dockerfile, Security Scan, etc.)</summary>
