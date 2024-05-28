@@ -8,10 +8,10 @@ pull_request_rules:
         - files=VERSION_SQLite3.txt
         - files=SQLite3-shields.io-badge.json
       - "#files=2"
-      - check-success="Grype Container Scan / grype"
-      - check-success="Snyk Docker Scan / snyk"
-      - check-success="Code scanning results / Grype"
-      - check-success="Code scanning results / Snyk Container"
+      - check-success="grype"
+      - check-success="snyk"
+      - check-success="Snyk Container"
+      - check-success="Grype"
     actions:
       merge:
         method: merge
