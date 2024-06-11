@@ -4,7 +4,13 @@
 #  We split the RUN layers to cache them separately to fasten the rebuild process
 #  in case of build fails during multi-stage builds.
 # -----------------------------------------------------------------------------
+
+# syntax=docker/dockerfile:1
+ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
+
 FROM alpine:latest AS build
+
+ARG BUILDKIT_SBOM_SCAN_STAGE=true
 
 # Install dependencies
 RUN \
