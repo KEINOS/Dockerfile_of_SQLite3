@@ -160,5 +160,13 @@ $ echo $?
 
 ## License
 
-- [MIT License](https://github.com/KEINOS/Dockerfile_of_SQLite3/blob/master/LICENSE.md) by [The Dockerfile of SQLite3 Contributors](https://github.com/KEINOS/Dockerfile_of_SQLite3/graphs/contributors).
-  - SQLite: [Public Domain](https://sqlite.org/copyright.html) by [D. Richard Hipp](https://en.wikipedia.org/wiki/D._Richard_Hipp) and [SQLite.org](https://sqlite.org/).
+- Dockerfile: [MIT License](https://github.com/KEINOS/Dockerfile_of_SQLite3/blob/master/LICENSE.md) by [The Dockerfile of SQLite3 Contributors](https://github.com/KEINOS/Dockerfile_of_SQLite3/graphs/contributors).
+- SQLite: [Public Domain](https://sqlite.org/copyright.html) by [D. Richard Hipp](https://en.wikipedia.org/wiki/D._Richard_Hipp) and [SQLite.org](https://sqlite.org/).
+- The below packages in the container are: [GPL-3.0-or-later](https://spdx.org/licenses/GPL-3.0-or-later.html)
+  - [GNU patch](https://savannah.gnu.org/projects/patch/)
+  - [GNU make](https://www.gnu.org/software/make/)
+  - [GNU dbm](https://www.gnu.org.ua/software/gdbm/) (gdbm)
+  - [Debian fakeroot](https://salsa.debian.org/clint/fakeroot)
+  - [GNU Readline Library](https://tiswww.cwru.edu/php/chet/readline/rltop.html)
+  - [GNU Tar](https://www.gnu.org/software/tar/)
+
