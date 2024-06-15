@@ -39,10 +39,39 @@ docker pull keinos/sqlite3:latest
 
 ```shellsession
 $ docker pull keinos/sqlite3:latest
-...
+**snip**
 ```
 
-### Specify the version
+<details><summary>SBOM Support</summary>
+
+The images supports [SBOM](https://www.cisa.gov/sbom). You can check the software components used in the image as below.
+
+```shellsession
+$ docker sbom keinos/sqlite3:latest
+Syft v0.43.0
+ ✔ Loaded image            
+ ✔ Parsed image            
+ ✔ Cataloged packages      [14 packages]
+
+NAME                    VERSION      TYPE 
+alpine-baselayout       3.6.5-r0     apk   
+alpine-baselayout-data  3.6.5-r0     apk   
+alpine-keys             2.4-r1       apk   
+apk-tools               2.14.4-r0    apk   
+busybox                 1.36.1-r29   apk   
+busybox-binsh           1.36.1-r29   apk   
+ca-certificates-bundle  20240226-r0  apk   
+libcrypto3              3.3.1-r0     apk   
+libssl3                 3.3.1-r0     apk   
+musl                    1.2.5-r0     apk   
+musl-utils              1.2.5-r0     apk   
+scanelf                 1.3.7-r2     apk   
+ssl_client              1.36.1-r29   apk   
+zlib                    1.3.1-r1     apk 
+```
+</details>
+
+### Specify the version to pull
 
 ```shellsession
 $ docker pull keinos/sqlite3:3.44.2
