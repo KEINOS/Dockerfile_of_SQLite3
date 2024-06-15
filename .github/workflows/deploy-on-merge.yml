@@ -29,3 +29,17 @@ jobs:
 
       - name: Build and push image
         run: ./build-images.sh --push --buildx
+
+      # Compare the image built in the pull request with the one in production
+      - name: Docker Scout
+        id: docker-scout
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: docker/scout-action@v1
+        with:
+          command: quickview,compare
+          image: keinos/sqlite3:latest
+          to-latest: true
+          ignore-unchanged: true
+          only-severities: critical,high
+          github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          organization: keinos
