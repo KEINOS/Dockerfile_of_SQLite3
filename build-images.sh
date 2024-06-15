@@ -152,6 +152,8 @@ echo "$@" | grep 'buildx' >/dev/null && {
   docker buildx build \
     $doPush \
     --sbom=true \
+    --provenance=true \
+    --provenance=mode=max \
     --platform linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6 \
     --tag "$NAME_IMAGE_LATEST" .
 
@@ -159,9 +161,12 @@ echo "$@" | grep 'buildx' >/dev/null && {
   docker buildx build \
     $doPush \
     --sbom=true \
+    --provenance=true \
+    --provenance=mode=max \
     --platform linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6 \
     --tag "$NAME_IMAGE_VERSIONED" .
 
+  # Shutdown the builder
   docker buildx stop "$NAME_MULTIARCH_BUILDER"
 }
 
