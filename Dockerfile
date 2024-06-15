@@ -1,13 +1,12 @@
+# syntax=docker/dockerfile:1
+ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
+
 # -----------------------------------------------------------------------------
 #  Build Stage
 #
 #  We split the RUN layers to cache them separately to fasten the rebuild process
 #  in case of build fails during multi-stage builds.
 # -----------------------------------------------------------------------------
-
-# syntax=docker/dockerfile:1
-ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
-
 FROM alpine:latest AS build
 
 ARG BUILDKIT_SBOM_SCAN_STAGE=true
@@ -53,15 +52,16 @@ FROM alpine:latest
 COPY --from=build /usr/bin/sqlite3 /usr/bin/sqlite3
 COPY run-test.sh /run-test.sh
 
+# Ensure to be up-to-date (fix issue #32, CVE-2022-3996)
+RUN apk update --no-cache && apk upgrade --no-cache
+
 # Create a user and group for SQLite3 to avoid: Dockle CIS-DI-0001
 ENV \
   USER_SQLITE=sqlite \
   GROUP_SQLITE=sqlite
 RUN \
   addgroup -S $GROUP_SQLITE && \
-  adduser  -S $USER_SQLITE -G $GROUP_SQLITE && \
-  # Fix issue #32 (CVE-2022-3996)
-  apk --no-cache upgrade
+  adduser  -S $USER_SQLITE -G $GROUP_SQLITE
 
 # Set user
 USER $USER_SQLITE
