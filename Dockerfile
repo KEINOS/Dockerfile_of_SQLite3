@@ -9,8 +9,6 @@ ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 # -----------------------------------------------------------------------------
 FROM alpine:latest AS build
 
-ARG BUILDKIT_SBOM_SCAN_STAGE=true
-
 # Install dependencies
 RUN \
   apk update && \
@@ -48,6 +46,8 @@ RUN /run-test.sh
 #  Main Stage
 # -----------------------------------------------------------------------------
 FROM alpine:latest
+
+ARG BUILDKIT_SBOM_SCAN_STAGE=true
 
 COPY --from=build /usr/bin/sqlite3 /usr/bin/sqlite3
 COPY run-test.sh /run-test.sh
