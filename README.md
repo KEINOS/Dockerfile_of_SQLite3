@@ -97,8 +97,8 @@ Connected to a transient in-memory database.
 Use ".open FILENAME" to reopen on a persistent database.
 sqlite> .open ./sample.db
 sqlite> CREATE TABLE table_sample(timestamp TEXT, description TEXT);
-sqlite> INSERT INTO table_sample VALUES(datetime("now"),"First sample data. Foo");
-sqlite> INSERT INTO table_sample VALUES(datetime("now"),"Second sample data. Bar");
+sqlite> INSERT INTO table_sample VALUES(datetime('now'),'First sample data. Foo');
+sqlite> INSERT INTO table_sample VALUES(datetime('now'),'Second sample data. Bar');
 sqlite> .quit
 $ ls
 sample.db
