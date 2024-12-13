@@ -54,7 +54,7 @@ echoRed() {
 # The first argument is the target to check.
 #   ex: checkArchitecture "linux/amd64"
 isPlatformSupported() {
-  docker buildx ls | grep default | grep "$1" >/dev/null
+  docker buildx inspect default | grep Platforms | grep "$1" >/dev/null
   return $?
 }
 
