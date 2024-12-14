@@ -1,14 +1,18 @@
 # Security Policy
 
-## Supported Versions
+## [Fail-Fast](https://en.wikipedia.org/wiki/Fail-fast_system) Policy
 
-Currently, only an image built from the [latest official source code](https://www.sqlite.org/src/doc/trunk/README.md) is available.
+The "`latest`" image will be updated within a week using the latest source code <ins>as soon as the [official source code](https://www.sqlite.org/src/doc/trunk/README.md) has been updated</ins>.
 
-Though, as of SQLite v3.38.2, we provide version tagged Docker images.
+### Supported Versions
+
+Version-tagged Docker images are available to enable a fallback. (From SQLite v3.38.2).
 
 ```bash
 docker pull keinos/sqlite3:3.38.2
 ```
+
+- [View Available Tags (SQLite version) ](https://hub.docker.com/r/keinos/sqlite3/tags) @ DockerHub
 
 ## Vulnerability Policy
 
