@@ -53,7 +53,11 @@ COPY --from=build /usr/bin/sqlite3 /usr/bin/sqlite3
 COPY run-test.sh /run-test.sh
 
 # Ensure to be up-to-date (fix issue #32, CVE-2022-3996)
-RUN apk update --no-cache && apk upgrade --no-cache
+RUN apk update --no-cache && \
+  apk upgrade --no-cache && \
+  # Install tini to ensure that the default signal handlers work 
+  # (e.g., SIGTERM, SIGINT are handled correctly, not just SIGKILL)
+  apk add --no-cache tini
 
 # Create a user and group for SQLite3 to avoid: Dockle CIS-DI-0001
 ENV \
@@ -69,8 +73,11 @@ USER $USER_SQLITE
 # Run simple test
 RUN /run-test.sh
 
+# Set container's default entrypoint as `tini`
+ENTRYPOINT ["/sbin/tini", "-g", "--"]
+
 # Set container's default command as `sqlite3`
-CMD /usr/bin/sqlite3
+CMD ["/usr/bin/sqlite3"]
 
 # Avoid: Dockle CIS-DI-0006
 HEALTHCHECK \
