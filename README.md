@@ -18,6 +18,9 @@ docker pull keinos/sqlite3:latest
 
 <details><summary>Image Information (Dockerfile, Security Scan, etc.)</summary>
 
+- INIT Support:
+  - As of `3.47.2-20241207-tini`, the image supports [Tini](https://github.com/krallin/tini) as the default init process. (See: [#65](https://github.com/KEINOS/Dockerfile_of_SQLite3/pull/65))
+    - Originally SQLite3 was run as the PID 1 process. [This](https://github.com/KEINOS/Dockerfile_of_SQLite3/pull/65) change was made to ensure the container stops gracefully when receiving `SIGTERM` or `SIGINT` (e.g., `docker stop`).
 - Repositories/Registries:
   - [Image Registry](https://hub.docker.com/r/keinos/sqlite3)  @ DockerHub
   - [Dockerfile](https://github.com/KEINOS/Dockerfile_of_SQLite3/blob/master/Dockerfile) @ GitHub
@@ -69,6 +72,7 @@ scanelf                 1.3.7-r2     apk
 ssl_client              1.36.1-r29   apk
 zlib                    1.3.1-r1     apk
 ```
+
 </details>
 
 ### Specify the version to pull
