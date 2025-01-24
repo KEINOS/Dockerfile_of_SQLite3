@@ -11,7 +11,9 @@ docker pull keinos/sqlite3:latest
   - [![SQLite Version](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FKEINOS%2FDockerfile_of_SQLite3%2Fmaster%2FSQLite3-shields.io-badge.json)](https://github.com/KEINOS/Dockerfile_of_SQLite3/blob/master/VERSION_SQLite3.txt)
   - [View Available Tags (SQLite version)](https://hub.docker.com/r/keinos/sqlite3/tags) @ DockerHub
 - Supported Architecture:
-  - AMD64, ARM64, ARMv6, ARMv7
+  - ARM64, ARMv6, ARMv7 and Intel/AMD64
+- INIT System Support:
+  - [Tini](https://github.com/krallin/tini) (Fix:[#65](https://github.com/KEINOS/Dockerfile_of_SQLite3/pull/65))
 - Scan Status:
   - [![Snyk Docker Scan](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container-analysis.yml/badge.svg)](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container-analysis.yml)
   - [![Container Scan](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container_scan.yml/badge.svg)](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container_scan.yml)
@@ -19,7 +21,7 @@ docker pull keinos/sqlite3:latest
 <details><summary>Image Information (Dockerfile, Security Scan, etc.)</summary>
 
 - INIT Support:
-  - As of `3.47.2-20241207-tini`, the image supports [Tini](https://github.com/krallin/tini) as the default init process. (See: [#65](https://github.com/KEINOS/Dockerfile_of_SQLite3/pull/65))
+  - As of `3.47.2-20241207-tini`, the image supports [Tini](https://github.com/krallin/tini) as the default init process. (See issue [#65](https://github.com/KEINOS/Dockerfile_of_SQLite3/pull/65))
     - Originally SQLite3 was run as the PID 1 process. [This](https://github.com/KEINOS/Dockerfile_of_SQLite3/pull/65) change was made to ensure the container stops gracefully when receiving `SIGTERM` or `SIGINT` (e.g., `docker stop`).
 - Repositories/Registries:
   - [Image Registry](https://hub.docker.com/r/keinos/sqlite3)  @ DockerHub
