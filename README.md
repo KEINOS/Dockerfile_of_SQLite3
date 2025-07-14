@@ -11,7 +11,7 @@ docker pull keinos/sqlite3:latest
   - [![SQLite Version](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FKEINOS%2FDockerfile_of_SQLite3%2Fmaster%2FSQLite3-shields.io-badge.json)](https://github.com/KEINOS/Dockerfile_of_SQLite3/blob/master/VERSION_SQLite3.txt)
   - [View Available Tags (SQLite version)](https://hub.docker.com/r/keinos/sqlite3/tags) @ DockerHub
 - Supported Architecture:
-  - ARM64, ARMv6, ARMv7 and Intel/AMD64
+  - Arm64, Armv6, Armv7 and Intel/AMD64
 - INIT System Support:
   - [Tini](https://github.com/krallin/tini) (Fix:[#65](https://github.com/KEINOS/Dockerfile_of_SQLite3/pull/65))
 - Scan Status:
