@@ -84,6 +84,8 @@ $ docker pull keinos/sqlite3:3.44.2
 ...
 ```
 
+- [Available versions](https://hub.docker.com/r/keinos/sqlite3/tags) @ hub.docker.com
+
 ### Build locally
 
 ```shellsession
