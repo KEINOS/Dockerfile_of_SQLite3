@@ -20,8 +20,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Due to the deprecation of DOCKER_CONTENT_TRUST we removed the usage of
+      # DOCKER_CONTENT_TRUST=1.
+      # See: https://www.docker.com/blog/retiring-docker-content-trust/
       - name: Pre pull alpine image for stability
-        run : DOCKER_CONTENT_TRUST=1 docker pull alpine:latest
+        run : docker pull alpine:latest
 
       - name: Build a Docker image
         run: docker build -t keinos/sqlite3:test .
