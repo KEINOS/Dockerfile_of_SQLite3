@@ -7,6 +7,10 @@ on:
       - master
     types: [closed]
 
+permissions:
+  contents: read
+  id-token: write  # OIDC for keyless signing
+
 jobs:
   job:
     runs-on: ubuntu-latest
@@ -30,6 +34,9 @@ jobs:
       - name: Build and push image
         run: ./build-images.sh --push --buildx
 
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v3
+
       # Compare the image built in the pull request with the one in production
       - name: Docker Scout
         id: docker-scout
@@ -43,3 +50,14 @@ jobs:
           only-severities: critical,high
           github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           organization: keinos
+
+      - name: Sign pushed images with Cosign (keyless)
+        run: |
+          set -euo pipefail
+          IMAGE="keinos/sqlite3"
+          VER=$(awk '{print $1}' VERSION_SQLite3.txt)
+          for TAG in latest "$VER"; do
+            DIGEST=$(docker buildx imagetools inspect "docker.io/${IMAGE}:${TAG}" \
+              --format '{{json .Manifest}}' | jq -r '.digest')
+            cosign sign --yes "docker.io/${IMAGE}@${DIGEST}"
+          done
