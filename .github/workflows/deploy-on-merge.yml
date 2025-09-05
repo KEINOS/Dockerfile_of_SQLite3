@@ -54,10 +54,33 @@ jobs:
       - name: Sign pushed images with Cosign (keyless)
         run: |
           set -euo pipefail
-          IMAGE="keinos/sqlite3"
-          VER=$(awk '{print $1}' VERSION_SQLite3.txt)
+          set -x  # enable command echo in logs for debugging; remove after verification
+
+          # Default and validation
+          IMAGE="${IMAGE:-keinos/sqlite3}"
+          # Extract the first token of VERSION_SQLITE3 safely.
+          # The file contains lines like: VERSION_SQLITE3='3.50.4 2025-07-30 ...'
+          # This awk picks the value inside single quotes, then takes the first word.
+          VER=$(awk -F"'" '/^VERSION_SQLITE3=/{split($2,a," "); print a[1]; exit}' VERSION_SQLite3.txt)
+          if [ -z "${IMAGE}" ] || [ -z "${VER}" ]; then
+            echo "ERROR: IMAGE or VER is empty" >&2
+            echo "IMAGE='${IMAGE}'" >&2
+            echo "VER='${VER}'" >&2
+            exit 1
+          fi
+
           for TAG in latest "$VER"; do
-            DIGEST=$(docker buildx imagetools inspect "docker.io/${IMAGE}:${TAG}" \
-              --format '{{json .Manifest}}' | jq -r '.digest')
+            echo "Inspecting docker.io/${IMAGE}:${TAG}"
+            RAW=$(docker buildx imagetools inspect "docker.io/${IMAGE}:${TAG}" --format '{{json .}}' || true)
+            echo "${RAW}" | jq .  # print full JSON to logs for debugging
+
+            DIGEST=$(printf '%s' "${RAW}" | jq -r '(.manifest.digest // .Manifest.digest // .manifest.manifests[0].digest // .Manifest.manifests[0].digest // .manifests[0].digest // .Descriptor.digest // .Descriptor.Digest // .Digest)')
+
+            if [ -z "${DIGEST:-}" ] || [ "${DIGEST}" = "null" ]; then
+              echo "Failed to extract digest for docker.io/${IMAGE}:${TAG}" >&2
+              exit 1
+            fi
+
+            echo "Signing docker.io/${IMAGE}@${DIGEST}"
             cosign sign --yes "docker.io/${IMAGE}@${DIGEST}"
           done
