@@ -18,7 +18,7 @@ docker pull keinos/sqlite3:latest
   - [![Snyk Docker Scan](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container-analysis.yml/badge.svg)](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container-analysis.yml)
   - [![Container Scan](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container_scan.yml/badge.svg)](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container_scan.yml)
 
-<details><summary>Image Information (Dockerfile, Security Scan, etc.)</summary>
+<details><summary>Image Information (Dockerfile, Security Scan, Image Signature, SBOM, etc.)</summary>
 
 - INIT Support:
   - As of `3.47.2-20241207-tini`, the image supports [Tini](https://github.com/krallin/tini) as the default init process. (See issue [#65](https://github.com/KEINOS/Dockerfile_of_SQLite3/pull/65))
@@ -35,6 +35,46 @@ docker pull keinos/sqlite3:latest
   - [Snyk Docker Scan](https://docs.snyk.io/integrate-with-snyk/snyk-ci-cd-integrations/github-actions-for-snyk-setup-and-checking-for-vulnerabilities/snyk-docker-action) and [Grype Container Scan](https://github.com/anchore/scan-action) on push, PR and merge.
   - Scan Interval: Once a week.
   - See the [Security overview](https://github.com/KEINOS/Dockerfile_of_SQLite3/security) for the details.
+- Verification of Image Signature Using Cosign:
+  - As of `3.50.4`, the image is signed using [Cosign](https://github.com/sigstore/cosign). Check if the result contains "The cosign claims were validated".
+
+    ```bash
+    # get digest
+    DIGEST=$(docker buildx imagetools inspect "docker.io/keinos/sqlite3:latest" --format '{{json .}}' | jq -r '.manifest.digest')
+
+    # verify
+    cosign verify \
+      --certificate-identity 'https://github.com/KEINOS/Dockerfile_of_SQLite3/.github/workflows/deploy-on-merge.yml@refs/heads/master' \
+      --certificate-oidc-issuer 'https://token.actions.githubusercontent.com' \
+      "docker.io/keinos/sqlite3@${DIGEST}"
+    ```
+
+- SBOM
+  - The images supports [SBOM](https://www.cisa.gov/sbom). You can check the software components used in the image as below.
+
+  ```shellsession
+  $ docker sbom keinos/sqlite3:latest
+  Syft v0.43.0
+  ✔ Loaded image
+  ✔ Parsed image
+  ✔ Cataloged packages      [14 packages]
+
+  NAME                    VERSION      TYPE
+  alpine-baselayout       3.6.5-r0     apk
+  alpine-baselayout-data  3.6.5-r0     apk
+  alpine-keys             2.4-r1       apk
+  apk-tools               2.14.4-r0    apk
+  busybox                 1.36.1-r29   apk
+  busybox-binsh           1.36.1-r29   apk
+  ca-certificates-bundle  20240226-r0  apk
+  libcrypto3              3.3.1-r0     apk
+  libssl3                 3.3.1-r0     apk
+  musl                    1.2.5-r0     apk
+  musl-utils              1.2.5-r0     apk
+  scanelf                 1.3.7-r2     apk
+  ssl_client              1.36.1-r29   apk
+  zlib                    1.3.1-r1     apk
+  ```
 
 </details>
 
@@ -46,36 +86,6 @@ docker pull keinos/sqlite3:latest
 $ docker pull keinos/sqlite3:latest
 **snip**
 ```
-
-<details><summary>SBOM Support</summary>
-
-The images supports [SBOM](https://www.cisa.gov/sbom). You can check the software components used in the image as below.
-
-```shellsession
-$ docker sbom keinos/sqlite3:latest
-Syft v0.43.0
- ✔ Loaded image
- ✔ Parsed image
- ✔ Cataloged packages      [14 packages]
-
-NAME                    VERSION      TYPE
-alpine-baselayout       3.6.5-r0     apk
-alpine-baselayout-data  3.6.5-r0     apk
-alpine-keys             2.4-r1       apk
-apk-tools               2.14.4-r0    apk
-busybox                 1.36.1-r29   apk
-busybox-binsh           1.36.1-r29   apk
-ca-certificates-bundle  20240226-r0  apk
-libcrypto3              3.3.1-r0     apk
-libssl3                 3.3.1-r0     apk
-musl                    1.2.5-r0     apk
-musl-utils              1.2.5-r0     apk
-scanelf                 1.3.7-r2     apk
-ssl_client              1.36.1-r29   apk
-zlib                    1.3.1-r1     apk
-```
-
-</details>
 
 ### Specify the version to pull
 
