@@ -172,6 +172,28 @@ $ echo $?
 
 - [Let us know](https://github.com/KEINOS/Dockerfile_of_SQLite3/issues) if you have any test to be included.
 
+### Use in your Dockerfile
+
+If your image is based on `alpine`, you can copy the `sqlite3` binary from this image as below.
+
+```Dockerfile
+FROM keinos/sqlite3:latest AS sqlite3
+
+FROM alpine:latest
+
+COPY --from=sqlite3 /usr/bin/sqlite3 /usr/bin/sqlite3
+
+ENV \
+  USER_SQLITE=sqlite \
+  GROUP_SQLITE=sqlite
+RUN \
+  addgroup -S $GROUP_SQLITE && \
+  adduser  -S $USER_SQLITE -G $GROUP_SQLITE
+
+... do whatever you want ...
+
+```
+
 ## ToDo
 
 - [x] ~~ARM support for DockerHub~~ (Issue #[2](https://github.com/KEINOS/Dockerfile_of_SQLite3/issues/2), PR #[20](https://github.com/KEINOS/Dockerfile_of_SQLite3/pull/20))
