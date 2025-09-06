@@ -91,7 +91,7 @@ $ docker pull keinos/sqlite3:latest
 
 ```shellsession
 $ docker pull keinos/sqlite3:3.44.2
-...
+**snip**
 ```
 
 - [Available versions](https://hub.docker.com/r/keinos/sqlite3/tags) @ hub.docker.com
@@ -100,7 +100,7 @@ $ docker pull keinos/sqlite3:3.44.2
 
 ```shellsession
 $ docker build -t sqlite3:local https://github.com/KEINOS/Dockerfile_of_SQLite3.git
-...
+**snip**
 ```
 
 ### Interactive
@@ -123,6 +123,12 @@ sample.db
 ```
 
 - Note that you need to mount the working directory as a volume to the container.
+
+> [!TIP]
+> For Windows users, use `%cd%` or `${PWD}` instead of `$(pwd)`.
+>
+> - `cmd.exe`: `docker run --rm -it -v "%cd%:/workspace" -w /workspace keinos/sqlite3`
+> - `PowerShell`: `docker run --rm -it -v "${PWD}:/workspace" -w /workspace keinos/sqlite3`
 
 ### Command
 
