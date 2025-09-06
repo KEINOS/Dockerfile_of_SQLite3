@@ -36,7 +36,7 @@ docker pull keinos/sqlite3:latest
   - Scan Interval: Once a week.
   - See the [Security overview](https://github.com/KEINOS/Dockerfile_of_SQLite3/security) for the details.
 - Verification of Image Signature Using Cosign:
-  - As of `3.50.4`, the image is signed using [Cosign](https://github.com/sigstore/cosign). Check if the result contains "The cosign claims were validated".
+  - As of `3.50.4`, the image is signed using [Cosign](https://github.com/sigstore/cosign). Check if the result contains "The cosign claims were validated". (See issue [#86](https://github.com/KEINOS/Dockerfile_of_SQLite3/issues/86) and [#88](https://github.com/KEINOS/Dockerfile_of_SQLite3/issues/88))
 
     ```bash
     # get digest
