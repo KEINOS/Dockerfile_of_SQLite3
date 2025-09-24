@@ -14,6 +14,7 @@ docker pull keinos/sqlite3:latest
   - Arm64, Armv6, Armv7 and Intel/AMD64
 - INIT System Support:
   - [Tini](https://github.com/krallin/tini) (Fix:[#65](https://github.com/KEINOS/Dockerfile_of_SQLite3/pull/65))
+- Static Binary
 - Scan Status:
   - [![Snyk Docker Scan](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container-analysis.yml/badge.svg)](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container-analysis.yml)
   - [![Container Scan](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container_scan.yml/badge.svg)](https://github.com/KEINOS/Dockerfile_of_SQLite3/actions/workflows/container_scan.yml)
