@@ -1,7 +1,7 @@
 <!-- markdownlint-disable MD001 MD033 MD034 MD041 -->
 # Dockerfile of SQLite3
 
-Alpine Docker image of SQLite3 built from the latest source code.
+Alpine Docker image of SQLite3 built from the latest source code statically linked.
 
 ```bash
 docker pull keinos/sqlite3:latest
@@ -31,6 +31,7 @@ docker pull keinos/sqlite3:latest
   - Base Image: `alpine:latest`
   - SQLite3 Source: [https://www.sqlite.org/src/](https://www.sqlite.org/src/doc/trunk/README.md) @ SQLite.org
   - Update Interval: [Once a week](https://github.com/KEINOS/Dockerfile_of_SQLite3/blob/master/.github/workflows/weekly-update.yml)
+  - Static Binary: As of `3.50.4-20250730-static` (Issue [#90](https://github.com/KEINOS/Dockerfile_of_SQLite3/issues/90)), the `sqlite3` CLI is built as a fully static binary. This reduces the binary size from about ~7.0 MiB to ~977 KiB (x86_64, stripped) and improves portability across Linux distributions.
 - Basic Vulnerability Scan:
   - [Snyk Docker Scan](https://docs.snyk.io/integrate-with-snyk/snyk-ci-cd-integrations/github-actions-for-snyk-setup-and-checking-for-vulnerabilities/snyk-docker-action) and [Grype Container Scan](https://github.com/anchore/scan-action) on push, PR and merge.
   - Scan Interval: Once a week.
@@ -57,23 +58,25 @@ docker pull keinos/sqlite3:latest
   Syft v0.43.0
   ✔ Loaded image
   ✔ Parsed image
-  ✔ Cataloged packages      [14 packages]
-
+  ✔ Cataloged packages      [17 packages]
   NAME                    VERSION      TYPE
-  alpine-baselayout       3.6.5-r0     apk
-  alpine-baselayout-data  3.6.5-r0     apk
-  alpine-keys             2.4-r1       apk
-  apk-tools               2.14.4-r0    apk
-  busybox                 1.36.1-r29   apk
-  busybox-binsh           1.36.1-r29   apk
-  ca-certificates-bundle  20240226-r0  apk
-  libcrypto3              3.3.1-r0     apk
-  libssl3                 3.3.1-r0     apk
-  musl                    1.2.5-r0     apk
-  musl-utils              1.2.5-r0     apk
-  scanelf                 1.3.7-r2     apk
-  ssl_client              1.36.1-r29   apk
-  zlib                    1.3.1-r1     apk
+  alpine-baselayout       3.7.0-r0     apk
+  alpine-baselayout-data  3.7.0-r0     apk
+  alpine-keys             2.5-r0       apk
+  alpine-release          3.22.1-r0    apk
+  apk-tools               2.14.9-r2    apk
+  busybox                 1.37.0-r19   apk
+  busybox-binsh           1.37.0-r19   apk
+  ca-certificates-bundle  20250619-r0  apk
+  libapk2                 2.14.9-r2    apk
+  libcrypto3              3.5.2-r0     apk
+  libssl3                 3.5.2-r0     apk
+  musl                    1.2.5-r10    apk
+  musl-utils              1.2.5-r10    apk
+  scanelf                 1.3.8-r1     apk
+  ssl_client              1.37.0-r19   apk
+  tini                    0.19.0-r3    apk
+  zlib                    1.3.1-r2     apk
   ```
 
 </details>
@@ -198,6 +201,19 @@ RUN \
 
 ... do whatever you want ...
 
+```
+
+Because the `sqlite3` binary is statically linked, you can also copy it into non-Alpine images (e.g., Debian/Ubuntu) without additional runtime dependencies:
+
+```Dockerfile
+FROM keinos/sqlite3:latest AS sqlite3
+
+FROM ubuntu:latest
+
+COPY --from=sqlite3 /usr/bin/sqlite3 /usr/bin/sqlite3
+
+# (Optional) quick smoke tests
+RUN sqlite3 --version
 ```
 
 ## ToDo
