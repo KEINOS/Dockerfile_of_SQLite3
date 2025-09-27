@@ -82,5 +82,13 @@ jobs:
             fi
 
             echo "Signing docker.io/${IMAGE}@${DIGEST}"
-            cosign sign --yes "docker.io/${IMAGE}@${DIGEST}"
+
+            # Retry up to 3 times with 10 seconds intervals.
+            # Avoid transient failures to retrieve OIDC credentials.
+            n=0
+            until [ $n -ge 3 ]; do
+              cosign sign --yes "docker.io/${IMAGE}@${DIGEST}" && break
+              n=$((n+1))
+              sleep 10
+            done
           done
