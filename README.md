@@ -11,7 +11,7 @@ docker pull keinos/sqlite3:latest
   - [![SQLite Version](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FKEINOS%2FDockerfile_of_SQLite3%2Fmaster%2FSQLite3-shields.io-badge.json)](https://github.com/KEINOS/Dockerfile_of_SQLite3/blob/master/VERSION_SQLite3.txt)
   - [View Available Tags (SQLite version)](https://hub.docker.com/r/keinos/sqlite3/tags) @ DockerHub
 - Supported Architecture:
-  - Arm64, Armv6, Armv7 and Intel/AMD64
+  - Arm64, Armv6, Armv7, Intel/AMD64 and Apple Silicon (M series)
 - INIT System Support:
   - [Tini](https://github.com/krallin/tini) (Fix:[#65](https://github.com/KEINOS/Dockerfile_of_SQLite3/pull/65))
 - Static Binary
@@ -183,26 +183,6 @@ $ echo $?
 - [Let us know](https://github.com/KEINOS/Dockerfile_of_SQLite3/issues) if you have any test to be included.
 
 ### Use in your Dockerfile
-
-If your image is based on `alpine`, you can copy the `sqlite3` binary from this image as below.
-
-```Dockerfile
-FROM keinos/sqlite3:latest AS sqlite3
-
-FROM alpine:latest
-
-COPY --from=sqlite3 /usr/bin/sqlite3 /usr/bin/sqlite3
-
-ENV \
-  USER_SQLITE=sqlite \
-  GROUP_SQLITE=sqlite
-RUN \
-  addgroup -S $GROUP_SQLITE && \
-  adduser  -S $USER_SQLITE -G $GROUP_SQLITE
-
-... do whatever you want ...
-
-```
 
 Because the `sqlite3` binary is statically linked, you can also copy it into non-Alpine images (e.g., Debian/Ubuntu) without additional runtime dependencies:
 
