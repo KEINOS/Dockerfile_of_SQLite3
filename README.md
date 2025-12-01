@@ -32,7 +32,7 @@ docker pull keinos/sqlite3:latest
   - Base Image: `alpine:latest`
   - SQLite3 Source: [https://www.sqlite.org/src/](https://www.sqlite.org/src/doc/trunk/README.md) @ SQLite.org
   - Update Interval: [Once a week](https://github.com/KEINOS/Dockerfile_of_SQLite3/blob/master/.github/workflows/weekly-update.yml)
-  - Static Binary: As of `3.50.4-20250730-static` (Issue [#90](https://github.com/KEINOS/Dockerfile_of_SQLite3/issues/90)), the `sqlite3` CLI is built as a fully static binary. This reduces the binary size from about ~7.0 MiB to ~977 KiB (x86_64, stripped) and improves portability across Linux distributions.
+  - Static Binary: As of `3.50.4-20250730-static` (Issue [#90](https://github.com/KEINOS/Dockerfile_of_SQLite3/issues/90)), the `sqlite3` CLI binary is built as a fully static binary and reduced size from ~7.0 MiB to ~977 KiB (x86_64, stripped). It improves portability across Linux distributions.
 - Basic Vulnerability Scan:
   - [Snyk Docker Scan](https://docs.snyk.io/integrate-with-snyk/snyk-ci-cd-integrations/github-actions-for-snyk-setup-and-checking-for-vulnerabilities/snyk-docker-action) and [Grype Container Scan](https://github.com/anchore/scan-action) on push, PR and merge.
   - Scan Interval: Once a week.
