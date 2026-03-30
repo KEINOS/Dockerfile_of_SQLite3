@@ -16,9 +16,12 @@ on:
 jobs:
   grype:
     runs-on: ubuntu-latest
+    permissions:
+      # required for all workflows
+      security-events: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       # Due to the deprecation of DOCKER_CONTENT_TRUST we removed the usage of
       # DOCKER_CONTENT_TRUST=1.
@@ -31,12 +34,12 @@ jobs:
 
       - name: Scan image
         id: scan
-        uses: anchore/scan-action@v3
+        uses: anchore/scan-action@v7
         with:
           image: "keinos/sqlite3:test"
           only-fixed: "true"
 
       - name: upload Anchore scan SARIF report
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: ${{ steps.scan.outputs.sarif }}
