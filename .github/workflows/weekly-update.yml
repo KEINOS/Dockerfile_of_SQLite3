@@ -35,6 +35,6 @@ jobs:
         run: ./check-updates.sh
 
       - name: Create pull request on any file change
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v8
         with:
             token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
