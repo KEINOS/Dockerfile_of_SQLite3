@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "label": "SQLite",
-  "message": "3.53.4",
+  "message": "3.54.1",
   "color": "blue",
   "namedLogo": "sqlite"
 }
